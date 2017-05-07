@@ -116,7 +116,7 @@
 <flagvalue id="cflags-gprof" value="false"/>
 <flagvalue id="cflags-gcov" value="false"/>
 </flag>
-<option id="user" value="--enable-debug --with-alsa --disable-shared --enable-static"/>
+<option id="user" value="--enable-debug --with-alsa --disable-shared --enable-static CXXFLAGS=&quot;-mfpu=neon-vfpv4 -mfloat-abi=hard -funsafe-math-optimizations -O3&quot;"/>
 <option id="autogen" value="autogen.sh"/>
 <option id="autogenOpts" value=""/>
 </configuration>
