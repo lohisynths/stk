@@ -589,7 +589,7 @@ const StkFloat ONE_OVER_128 = 0.0078125;
 } // stk namespace
 
 
-//#include <cmath>
+#include <cmath>
 
 namespace stk
 {
@@ -598,66 +598,61 @@ namespace math
 
 inline StkFloat sin(StkFloat x)
 {
-	return 0; //std::sin(x);
+	return std::sin((long double)x);
 }
 inline StkFloat cos(StkFloat x)
 {
-	return 0; //std::cos(x);
+	return std::cos((long double)x);
 }
 
 inline StkFloat fabs(StkFloat x)
 {
-	return 0; //std::fabs(x);
+	return std::fabs((long double)x);
 }
 
 inline StkFloat floor(StkFloat x)
 {
-	return 0; //std::floor(x);
+	return std::floor((long double)x);
 }
 
 inline StkFloat abs(StkFloat x)
 {
-	return 0; //std::floor(x);
+	return std::floor((long double)x);
 }
 
 inline StkFloat sqrt(StkFloat x)
 {
-	return 0; //std::sqrt(x);
+	return std::sqrt((long double)x);
 }
 
 inline StkFloat exp(StkFloat x)
 {
-	return 0; //std::exp(x);
+	return std::exp((long double)x);
 }
 
 inline StkFloat ceil(StkFloat x)
 {
-	return 0; //std::ceil(x);
+	return std::ceil((long double)x);
 }
 
 inline StkFloat log(StkFloat x)
 {
-	return 0; //std::log(x);
-}
-
-inline StkFloat log(StkFloat x, StkFloat y)
-{
-	return 0; //std::log(x, y);
+	return std::log((long double)x);
 }
 
 inline StkFloat pow(StkFloat x, StkFloat y)
 {
-	return 0; //std::pow(x, y);
+	return std::pow((long double)x, (long double)y);
 }
 
 inline StkFloat atan2(StkFloat x, StkFloat y)
 {
-	return 0; //std::atan2(x, y);
+	return std::atan2((long double)x, (long double)y);
 }
 
 inline StkFloat fmod(StkFloat x, StkFloat y)
 {
-	return 0; //std::fmod(x,y);
+	return std::fmod((long double)x,(long double)y);
 }
 }
 }
