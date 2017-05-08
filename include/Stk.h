@@ -6,7 +6,6 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include "StkMath.h"
 
 /*! \namespace stk
     \brief The STK namespace.
