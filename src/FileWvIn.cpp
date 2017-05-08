@@ -32,7 +32,6 @@
 /***************************************************/
 
 #include "FileWvIn.h"
-#include <cmath>
 
 namespace stk {
 
@@ -132,8 +131,8 @@ void FileWvIn :: normalize( StkFloat peak )
   StkFloat max = 0.0;
 
   for ( i=0; i<data_.size(); i++ ) {
-    if ( fabs( data_[i] ) > max )
-      max = (StkFloat) fabs((double) data_[i]);
+    if ( math::fabs( data_[i] ) > max )
+      max = (StkFloat) math::fabs((double) data_[i]);
   }
 
   if ( max > 0.0 ) {
@@ -152,7 +151,7 @@ void FileWvIn :: setRate( StkFloat rate )
   // of sound.
   if ( (rate_ < 0) && (time_ == 0.0) ) time_ = fileSize_ - 1.0;
 
-  if ( fmod( rate_, 1.0 ) != 0.0 ) interpolate_ = true;
+  if ( math::fmod( rate_, 1.0 ) != 0.0 ) interpolate_ = true;
   else interpolate_ = false;
 }
 

@@ -20,8 +20,6 @@
 /***************************************************/
 
 #include "JCRev.h"
-#include <cmath>
-
 namespace stk {
 
 JCRev :: JCRev( StkFloat T60 )
@@ -40,7 +38,7 @@ JCRev :: JCRev( StkFloat T60 )
   int delay, i;
   if ( scaler != 1.0 ) {
     for ( i=0; i<9; i++ ) {
-      delay = (int) floor( scaler * lengths[i] );
+      delay = (int) math::floor( scaler * lengths[i] );
       if ( (delay & 1) == 0) delay++;
       while ( !this->isPrime(delay) ) delay += 2;
       lengths[i] = delay;
@@ -91,7 +89,7 @@ void JCRev :: setT60( StkFloat T60 )
   }
 
   for ( int i=0; i<4; i++ )
-    combCoefficient_[i] = pow(10.0, (-3.0 * combDelays_[i].getDelay() / (T60 * Stk::sampleRate())));
+    combCoefficient_[i] = math::pow(10.0, (-3.0 * combDelays_[i].getDelay() / (T60 * Stk::sampleRate())));
 }
 
 StkFrames& JCRev :: tick( StkFrames& frames, unsigned int channel )

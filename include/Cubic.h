@@ -2,7 +2,6 @@
 #define STK_CUBIC_H
 
 #include "Function.h"
-#include <cmath>
 
 namespace stk {
 

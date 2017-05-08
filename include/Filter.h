@@ -3,7 +3,6 @@
 
 #include "Stk.h"
 #include <vector>
-#include <cmath>
 
 namespace stk {
 
@@ -100,22 +99,22 @@ inline StkFloat Filter :: phaseDelay( StkFloat frequency )
   StkFloat omegaT = 2 * PI * frequency / Stk::sampleRate();
   StkFloat real = 0.0, imag = 0.0;
   for ( unsigned int i=0; i<b_.size(); i++ ) {
-    real += b_[i] * std::cos( i * omegaT );
-    imag -= b_[i] * std::sin( i * omegaT );
+    real += b_[i] * math::cos( i * omegaT );
+    imag -= b_[i] * math::sin( i * omegaT );
   }
   real *= gain_;
   imag *= gain_;
 
-  StkFloat phase = atan2( imag, real );
+  StkFloat phase = math::atan2( imag, real );
 
   real = 0.0, imag = 0.0;
   for ( unsigned int i=0; i<a_.size(); i++ ) {
-    real += a_[i] * std::cos( i * omegaT );
-    imag -= a_[i] * std::sin( i * omegaT );
+    real += a_[i] * math::cos( i * omegaT );
+    imag -= a_[i] * math::sin( i * omegaT );
   }
 
-  phase -= std::atan2( imag, real );
-  phase = std::fmod( -phase, 2 * PI );
+  phase -= math::atan2( imag, real );
+  phase = math::fmod( -phase, 2 * PI );
   return phase / omegaT;
 }
 

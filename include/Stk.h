@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-//#include <cstdlib>
+#include "StkMath.h"
 
 /*! \namespace stk
     \brief The STK namespace.
@@ -588,5 +588,80 @@ const StkFloat ONE_OVER_128 = 0.0078125;
 #endif
 
 } // stk namespace
+
+
+//#include <cmath>
+
+namespace stk
+{
+namespace math
+{
+
+inline StkFloat sin(StkFloat x)
+{
+	return 0; //std::sin(x);
+}
+inline StkFloat cos(StkFloat x)
+{
+	return 0; //std::cos(x);
+}
+
+inline StkFloat fabs(StkFloat x)
+{
+	return 0; //std::fabs(x);
+}
+
+inline StkFloat floor(StkFloat x)
+{
+	return 0; //std::floor(x);
+}
+
+inline StkFloat abs(StkFloat x)
+{
+	return 0; //std::floor(x);
+}
+
+inline StkFloat sqrt(StkFloat x)
+{
+	return 0; //std::sqrt(x);
+}
+
+inline StkFloat exp(StkFloat x)
+{
+	return 0; //std::exp(x);
+}
+
+inline StkFloat ceil(StkFloat x)
+{
+	return 0; //std::ceil(x);
+}
+
+inline StkFloat log(StkFloat x)
+{
+	return 0; //std::log(x);
+}
+
+inline StkFloat log(StkFloat x, StkFloat y)
+{
+	return 0; //std::log(x, y);
+}
+
+inline StkFloat pow(StkFloat x, StkFloat y)
+{
+	return 0; //std::pow(x, y);
+}
+
+inline StkFloat atan2(StkFloat x, StkFloat y)
+{
+	return 0; //std::atan2(x, y);
+}
+
+inline StkFloat fmod(StkFloat x, StkFloat y)
+{
+	return 0; //std::fmod(x,y);
+}
+}
+}
+
 
 #endif

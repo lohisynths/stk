@@ -25,7 +25,7 @@ void main()
   ///////////  Yer Basic TX81Z Waves, Including Sine ///////////  
   fd = fopen("halfwave.raw","wb");
   for (i=0;i<LENGTH/2;i++)
-    data[i] = 32767 * sin(i * 2 * PI / (double) LENGTH);
+    data[i] = 32767 * stk::sin(i * 2 * PI / (double) LENGTH);
   for (i=LENGTH/2;i<LENGTH;i++) 
     data[i] = 0;
   fwrite(&data,2,LENGTH,fd);
@@ -33,7 +33,7 @@ void main()
     
   fd = fopen("sinewave.raw","wb");
   for (i=LENGTH/2;i<LENGTH;i++)
-    data[i] = 32767 * sin(i * 2 * PI / (double) LENGTH);
+    data[i] = 32767 * stk::sin(i * 2 * PI / (double) LENGTH);
   fwrite(&data,2,LENGTH,fd);
   fclose(fd);
     
@@ -53,7 +53,7 @@ void main()
     
   fd = fopen("snglpeak.raw","wb");
   for (i=0;i<=LENGTH/4;i++)
-    data[i] = 32767 * (1.0 - cos(i * 2 * PI / (double) LENGTH));
+    data[i] = 32767 * (1.0 - stk::cos(i * 2 * PI / (double) LENGTH));
   for (i=0;i<=LENGTH/4;i++)
     data[LENGTH/2-i] = data[i];
   for (i=LENGTH/2;i<LENGTH;i++) 
@@ -87,7 +87,7 @@ void main()
   for (i=0;i<LENGTH;i++)      {
     temp = 0.0;
     for (j=1;j<=10;j++)
-      temp += cos(i * j * 2 * PI / (double) LENGTH);
+      temp += stk::cos(i * j * 2 * PI / (double) LENGTH);
     data[i] = 32767 / 10.0 * temp;
   }
   fwrite(&data,2,LENGTH,fd);
@@ -97,7 +97,7 @@ void main()
   for (i=0;i<LENGTH;i++)      {
     temp = 0.0;
     for (j=1;j<=20;j++)
-      temp += cos(i * j * 2 * PI / (double) LENGTH);
+      temp += stk::cos(i * j * 2 * PI / (double) LENGTH);
     data[i] = 32767 / 20.0 * temp;
   }
   fwrite(&data,2,LENGTH,fd);
@@ -107,7 +107,7 @@ void main()
   for (i=0;i<LENGTH;i++)      {
     temp = 0.0;
     for (j=1;j<=40;j++)
-      temp += cos(i * j * 2 * PI / (double) LENGTH);
+      temp += stk::cos(i * j * 2 * PI / (double) LENGTH);
     data[i] = 32767 / 40.0 * temp;
   }
   fwrite(&data,2,LENGTH,fd);
