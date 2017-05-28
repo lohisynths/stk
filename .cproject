@@ -139,7 +139,7 @@
 					<folderInfo id="org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281.1597380819.1113949283." name="/" resourcePath="">
 						<toolChain id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.debug.2090976134" name="GNU Autotools Toolchain" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolChain.debug">
 							<targetPlatform id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.targetPlatform.debug.2100893564" isAbstract="false" name="GNU Autotools Target Platform" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.targetPlatform.debug"/>
-							<builder buildPath="${workspace_loc:/stk}/build-arm_release" id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder.debug.2144204799" incrementalBuildTarget="lib -j4" keepEnvironmentInBuildfile="false" name="Autotools Makefile Generator" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder.debug"/>
+							<builder buildPath="${workspace_loc:/stk}" id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder.debug.2144204799" incrementalBuildTarget="lib -j4" keepEnvironmentInBuildfile="false" name="Autotools Makefile Generator" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder.debug"/>
 							<tool id="org.eclipse.linuxtools.cdt.autotools.core.gnu.toolchain.tool.configure.debug.2035465103" name="configure" superClass="org.eclipse.linuxtools.cdt.autotools.core.gnu.toolchain.tool.configure.debug">
 								<option defaultValue="CFLAGS=-g -O0" id="org.eclipse.linuxtools.cdt.autotools.core.option.configure.user.1681799357" name="User-specified configuration options" superClass="org.eclipse.linuxtools.cdt.autotools.core.option.configure.user" valueType="string"/>
 								<option id="org.eclipse.linuxtools.cdt.autotools.core.option.configure.name.1961332661" name="Name" superClass="org.eclipse.linuxtools.cdt.autotools.core.option.configure.name" value="org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281.1597380819.1113949283" valueType="string"/>
@@ -164,6 +164,9 @@
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Debug (GNU)">
+			<resource resourceType="PROJECT" workspacePath="/stk"/>
+		</configuration>
+		<configuration configurationName="arm_release">
 			<resource resourceType="PROJECT" workspacePath="/stk"/>
 		</configuration>
 		<configuration configurationName="Build (GNU)">
