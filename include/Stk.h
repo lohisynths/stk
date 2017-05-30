@@ -639,6 +639,18 @@ inline StkFloat fast_sin(StkFloat x) {
 	return x;
 }
 
+
+inline StkFloat fastPow(StkFloat a, StkFloat b) {
+  union {
+	  StkFloat d;
+    int x[2];
+  } u = { a };
+  u.x[1] = (int)(b * (u.x[1] - 1072632447) + 1072632447);
+  u.x[0] = 0;
+  return u.d;
+}
+
+
 inline StkFloat sin(StkFloat x)
 {
 	return fast_sin(x);
@@ -686,7 +698,7 @@ inline StkFloat log(StkFloat x)
 
 inline StkFloat pow(StkFloat x, StkFloat y)
 {
-	return std::pow((long double)x, (long double)y);
+	return fastPow(x, y);
 }
 
 inline StkFloat atan2(StkFloat x, StkFloat y)
