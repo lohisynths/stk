@@ -58,7 +58,7 @@ protected:
 
 inline StkFloat Noise :: tick( void )
 {
-  return lastFrame_[0] = (StkFloat) ( 2.0 * rand() / (RAND_MAX + 1.0) - 1.0 );
+  return lastFrame_[0] = (StkFloat) ( 2.0 * stk::math::rand() / (RAND_MAX + 1.0) - 1.0 );
 }
 
 inline StkFrames& Noise :: tick( StkFrames& frames, unsigned int channel )
@@ -73,7 +73,7 @@ inline StkFrames& Noise :: tick( StkFrames& frames, unsigned int channel )
   StkFloat *samples = &frames[channel];
   unsigned int hop = frames.channels();
   for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
-    *samples = (StkFloat) ( 2.0 * rand() / (RAND_MAX + 1.0) - 1.0 );
+    *samples = (StkFloat) ( 2.0 * stk::math::rand() / (RAND_MAX + 1.0) - 1.0 );
 
   lastFrame_[0] = *(samples-hop);
   return frames;

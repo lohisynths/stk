@@ -651,6 +651,34 @@ inline StkFloat fastPow(StkFloat a, StkFloat b) {
 }
 
 
+//https://stackoverflow.com/a/1640399
+static unsigned long x=123456789, y=362436069, z=521288629;
+
+inline unsigned long fastRand(void) {          //period 2^96-1
+unsigned long t;
+    x ^= x << 16;
+    x ^= x >> 5;
+    x ^= x << 1;
+
+   t = x;
+   x = y;
+   y = z;
+   z = t ^ x ^ y;
+
+  return z;
+}
+
+//http://nghiaho.com/?p=997
+inline StkFloat fastAtan(StkFloat x)
+{
+    return M_PI_4*x - x*(fabs(x) - 1)*(0.2447 + 0.0663*fabs(x));
+}
+
+inline StkFloat atan(StkFloat x)
+{
+	return fastAtan(x);
+}
+
 inline StkFloat sin(StkFloat x)
 {
 	return fast_sin(x);
@@ -710,6 +738,12 @@ inline StkFloat fmod(StkFloat x, StkFloat y)
 {
 	return std::fmod((long double)x,(long double)y);
 }
+
+inline StkFloat rand()
+{
+	return fastRand();
+}
+
 }
 }
 
