@@ -7,6 +7,14 @@
 #include <sstream>
 #include <vector>
 
+
+#define TABLE_SIZE_ 4096
+#define TABLE_MULT (1./TABLE_SIZE_)
+
+
+#define ALIGN(A) __attribute__ ((aligned (A))
+
+
 /*! \namespace stk
     \brief The STK namespace.
 
@@ -640,6 +648,131 @@ inline StkFloat fast_sin(StkFloat x) {
 }
 
 
+//static const float __sinf_rng[2] = {
+//	2.0 / M_PI,
+//	M_PI / 2.0
+//};
+//
+//static const float __sinf_lut[4] = {
+//	-0.00018365f,	//p7
+//	-0.16664831f,	//p3
+//	+0.00830636f,	//p5
+//	+0.99999661f,	//p1
+//};
+//
+//
+//static float fast_sin(float x)
+//{
+//	union {
+//		float 	f;
+//		int 	i;
+//	} ax;
+//
+//	float r, a, b, xx;
+//	int m, n;
+//
+//	ax.f = fabsf(x);
+//
+//	//Range Reduction:
+//	m = (int) (ax.f * __sinf_rng[0]);
+//	ax.f = ax.f - (((float)m) * __sinf_rng[1]);
+//
+//	//Test Quadrant
+//	n = m & 1;
+//	ax.f = ax.f - n * __sinf_rng[1];
+//	m = m >> 1;
+//	n = n ^ m;
+//	m = (x < 0.0);
+//	n = n ^ m;
+//	n = n << 31;
+//	ax.i = ax.i ^ n;
+//
+//	//Taylor Polynomial (Estrins)
+//	xx = ax.f * ax.f;
+//	a = (__sinf_lut[0] * ax.f) * xx + (__sinf_lut[2] * ax.f);
+//	b = (__sinf_lut[1] * ax.f) * xx + (__sinf_lut[3] * ax.f);
+//	xx = xx * xx;
+//	r = b + a * xx;
+//
+//	return r;
+//}
+
+
+
+
+
+
+
+
+
+//#define FAST_MATH_TABLE_SIZE 512
+//
+//inline float fast_sin(
+//  float x)
+//{
+//	static int init = 0;
+//	static float sinTable_f32 [FAST_MATH_TABLE_SIZE+1];
+//
+//	if(!init)
+//	{
+//		init=1;
+//		int n=0;
+//		for(n = 0; n < (FAST_MATH_TABLE_SIZE + 1); n++)
+//		{
+//			sinTable_f32[n]=sin(2*M_PI*n/FAST_MATH_TABLE_SIZE);
+//		}
+//
+//	}
+//  float sinVal, fract, in;                           /* Temporary variables for input, output */
+//  uint16_t index;                                        /* Index variable */
+//  float a, b;                                        /* Two nearest output values */
+//  int32_t n;
+//  float findex;
+//
+//  /* input x is in radians */
+//  /* Scale the input to [0 1] range from [0 2*PI] , divide input by 2*pi */
+//  in = x * 0.159154943092f;
+//
+//  /* Calculation of floor value of input */
+//  n = (int32_t) in;
+//
+//  /* Make negative values towards -infinity */
+//  if(x < 0.0f)
+//  {
+//    n--;
+//  }
+//
+//  /* Map input value to [0 1] */
+//  in = in - (float) n;
+//
+//  /* Calculation of index of the table */
+//  findex = (float) FAST_MATH_TABLE_SIZE * in;
+//  if (findex >= 512.0f) {
+//    findex -= 512.0f;
+//  }
+//
+//  index = ((uint16_t)findex) & 0x1ff;
+//
+//  /* fractional value calculation */
+//  fract = findex - (float) index;
+//
+//  /* Read two nearest values of input value from the sin table */
+//  a = sinTable_f32[index];
+//  b = sinTable_f32[index+1];
+//
+//  /* Linear interpolation process */
+//  sinVal = (1.0f-fract)*a + fract*b;
+//
+//  /* Return the output value */
+//  return (sinVal);
+//}
+
+
+
+
+
+
+
 inline StkFloat fastPow(StkFloat a, StkFloat b) {
   union {
 	  StkFloat d;
@@ -686,42 +819,42 @@ inline StkFloat sin(StkFloat x)
 }
 inline StkFloat cos(StkFloat x)
 {
-	return std::cos((long double)x);
+	return std::cos(x);
 }
 
 inline StkFloat fabs(StkFloat x)
 {
-	return std::fabs((long double)x);
+	return std::fabs(x);
 }
 
 inline StkFloat floor(StkFloat x)
 {
-	return std::floor((long double)x);
+	return std::floor(x);
 }
 
 inline StkFloat abs(StkFloat x)
 {
-	return std::floor((long double)x);
+	return std::floor(x);
 }
 
 inline StkFloat sqrt(StkFloat x)
 {
-	return std::sqrt((long double)x);
+	return std::sqrt(x);
 }
 
 inline StkFloat exp(StkFloat x)
 {
-	return std::exp((long double)x);
+	return std::exp(x);
 }
 
 inline StkFloat ceil(StkFloat x)
 {
-	return std::ceil((long double)x);
+	return std::ceil(x);
 }
 
 inline StkFloat log(StkFloat x)
 {
-	return std::log((long double)x);
+	return std::log(x);
 }
 
 inline StkFloat pow(StkFloat x, StkFloat y)
@@ -731,12 +864,12 @@ inline StkFloat pow(StkFloat x, StkFloat y)
 
 inline StkFloat atan2(StkFloat x, StkFloat y)
 {
-	return std::atan2((long double)x, (long double)y);
+	return std::atan2(x, y);
 }
 
 inline StkFloat fmod(StkFloat x, StkFloat y)
 {
-	return std::fmod((long double)x,(long double)y);
+	return std::fmod(x,y);
 }
 
 inline StkFloat rand()
