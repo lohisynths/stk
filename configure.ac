@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(STK, 4.5.1, gary@music.mcgill.ca, stk)
+AC_INIT(STK, 4.6.0, gary@music.mcgill.ca, stk)
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_SRCDIR(src/Stk.cpp)
 AC_CONFIG_FILES(Makefile src/Makefile projects/demo/Makefile projects/effects/Makefile projects/ragamatic/Makefile projects/examples/Makefile projects/examples/libMakefile projects/eguitar/Makefile)
@@ -126,86 +126,88 @@ esac
 if test $realtime = yes; then
   # Checks for package options and external software
   AC_MSG_CHECKING(for audio API)
+
+  AC_ARG_WITH(jack, [  --with-jack = choose JACK server support (mac and linux only)])
+  AS_IF([test "x$with_jack" == "xyes"], [
+api="$api -D__UNIX_JACK__"
+  AC_MSG_RESULT(using JACK)
+  AC_CHECK_LIB(jack, jack_client_open, , AC_MSG_ERROR(JACK support requires the jack library!))])
+
   case $host in
     *-*-linux*)
-    AC_ARG_WITH(jack, [  --with-jack = choose JACK server support (mac and linux only)], [
-    api="$api -D__UNIX_JACK__"
-    AC_MSG_RESULT(using JACK)
-    AC_CHECK_LIB(jack, jack_client_open, , AC_MSG_ERROR(JACK support requires the jack library!))
-    AC_CHECK_LIB(asound, snd_pcm_open, , AC_MSG_ERROR(Jack support also requires the asound library!))], )
-
     # Look for ALSA flag
-    AC_ARG_WITH(alsa, [  --with-alsa = choose native ALSA API support (linux only)], [
+    AC_ARG_WITH(alsa, [  --with-alsa = choose native ALSA API support (linux only)])
+    AS_IF([test "x$with_alsa" == "xyes"], [
     api="$api -D__LINUX_ALSA__"
     AC_MSG_RESULT(using ALSA)
-    AC_CHECK_LIB(asound, snd_pcm_open, , AC_MSG_ERROR(ALSA support requires the asound library!))], )
+    AC_CHECK_LIB(asound, snd_pcm_open, , AC_MSG_ERROR(ALSA support requires the asound library!))])
 
     # Look for OSS flag
-    AC_ARG_WITH(oss, [  --with-oss = choose OSS API support (linux only)], [
+    AC_ARG_WITH(oss, [  --with-oss = choose OSS API support (unixes only)])
+    AS_IF([test "x$with_oss" == "xyes"], [
     api="$api -D__LINUX_OSS__ -D__LINUX_ALSA__"
     AC_MSG_RESULT(using OSS)
-    AC_CHECK_LIB(asound, snd_pcm_open, , AC_MSG_ERROR(OSS support requires ALSA for RtMidi!))], )
+    AC_CHECK_LIB(asound, snd_pcm_open, , AC_MSG_ERROR(OSS support requires ALSA for RtMidi!))])
 
     # If no audio api flags specified, use ALSA
-    if [test "$api" == "";] then
+    AS_IF([test "$api" == ""], [
       AC_MSG_RESULT(using ALSA)
       AC_SUBST( api, [-D__LINUX_ALSA__] )
       AC_CHECK_LIB(asound, snd_pcm_open, , AC_MSG_ERROR(ALSA support requires the asound library!))
-    fi
+    ])
 
     AC_CHECK_LIB(pthread, pthread_create, , AC_MSG_ERROR(RtAudio requires the pthread library!))
     ;;
 
     *-apple*)
-    AC_ARG_WITH(jack, [  --with-jack = choose JACK server support (unix only)], [
-    api="$api -D__UNIX_JACK__"
-    AC_MSG_RESULT(using JACK)
-    AC_CHECK_LIB(jack, jack_client_new, , AC_MSG_ERROR(JACK support requires the jack library!))], )
-
     # Look for Core flag
-    AC_ARG_WITH(core, [  --with-core = choose CoreAudio API support (mac only)], [
+    AC_ARG_WITH(core, [  --with-core = choose CoreAudio API support (mac only)])
+    AS_IF([test "x$with_core" == "xyes"], [
     api="$api -D__MACOSX_CORE__"
     AC_MSG_RESULT(using CoreAudio)
     AC_CHECK_HEADER(CoreAudio/CoreAudio.h, [], [AC_MSG_ERROR(CoreAudio header files not found!)] )
-    LIBS="$LIBS -framework CoreAudio -framework CoreFoundation -framework CoreMIDI" ], )
+    LIBS="$LIBS -framework CoreAudio -framework CoreFoundation -framework CoreMIDI" ])
 
     # If no audio api flags specified, use CoreAudio
-    if [test "$api" == ""; ] then
+    AS_IF([test "$api" == ""], [
       AC_SUBST( api, [-D__MACOSX_CORE__] )
       AC_MSG_RESULT(using CoreAudio)
       AC_CHECK_HEADER(CoreAudio/CoreAudio.h,
       [],
       [AC_MSG_ERROR(CoreAudio header files not found!)] )
       AC_SUBST( LIBS, ["-framework CoreAudio -framework CoreFoundation -framework CoreMIDI"] )
-    fi
+    ])
 
     AC_CHECK_LIB(pthread, pthread_create, , AC_MSG_ERROR(RtAudio requires the pthread library!))
     ;;
 
     *-mingw32*)
-    AC_ARG_WITH(asio, [  --with-asio = choose ASIO API support (windoze only)], [
+    AC_ARG_WITH(asio, [  --with-asio = choose ASIO API support (windoze only)])
+    AS_IF([test "x$with_asio" == "xyes"], [
     api="$api -D__WINDOWS_ASIO__"
     AC_MSG_RESULT(using ASIO)
-    AC_SUBST( objects, ["asio.o asiodrivers.o asiolist.o iasiothiscallresolver.o"] ) ], )
+    AC_SUBST( objects, ["asio.o asiodrivers.o asiolist.o iasiothiscallresolver.o"] ) ])
 
     # Look for DirectSound flag
-    AC_ARG_WITH(ds, [  --with-ds = choose DirectSound API support (windoze only)], [
+    AC_ARG_WITH(ds, [  --with-ds = choose DirectSound API support (windoze only)])
+    AS_IF([test "x$with_ds" == "xyes"], [
     api="$api -D__WINDOWS_DS__"
     AC_MSG_RESULT(using DirectSound)
-    LIBS="-ldsound $LIBS" ], )
+    LIBS="-ldsound $LIBS" ])
 
     # Look for WASAPI flag
-    AC_ARG_WITH(wasapi, [  --with-wasapi = choose Windows Audio Session API support (windoze only)], [
+    AC_ARG_WITH(wasapi, [  --with-wasapi = choose Windows Audio Session API support (windoze only)])
+    AS_IF([test "x$with_wasapi" == "xyes"], [
     api="$api -D__WINDOWS_WASAPI__"
     AC_MSG_RESULT(using WASAPI)
-    LIBS="-luuid -lksuser $LIBS" ], )
+    LIBS="-luuid -lksuser $LIBS" ])
 
     # If no audio api flags specified, use DirectSound
-    if [test "$api" == "";] then
+    AS_IF([test "$api" == ""], [
       AC_SUBST( api, [-D__WINDOWS_DS__] )
       AC_MSG_RESULT(using DirectSound)
       LIBS="-ldsound -lwinmm $LIBS"
-    fi
+    ])
 
     api="$api -D__WINDOWS_MM__"
     LIBS="-lole32 -lwinmm -lwsock32 $LIBS"

@@ -22,7 +22,7 @@
     STK WWW site: http://ccrma.stanford.edu/software/stk/
 
     The Synthesis ToolKit in C++ (STK)
-    Copyright (c) 1995--2016 Perry R. Cook and Gary P. Scavone
+    Copyright (c) 1995--2017 Perry R. Cook and Gary P. Scavone
 
     Permission is hereby granted, free of charge, to any person
     obtaining a copy of this software and associated documentation files
@@ -338,7 +338,10 @@ StkFrames& StkFrames::getChannel(unsigned int sourceChannel,StkFrames& destinati
 #endif
   int sourceHop = nChannels_;
   int destinationHop = destinationFrames.nChannels_;
-  for (int i  = sourceChannel, j= destinationChannel; i < nFrames_ * nChannels_; i+=sourceHop,j+=destinationHop) {
+  for (unsigned int i  = sourceChannel, j= destinationChannel;
+       i < nFrames_ * nChannels_;
+       i+=sourceHop,j+=destinationHop)
+  {
     destinationFrames[j] = data_[i];
   }
   return destinationFrames;
@@ -366,7 +369,10 @@ void StkFrames::setChannel(unsigned int destinationChannel, const stk::StkFrames
 #endif
   unsigned int sourceHop = sourceFrames.nChannels_;
   unsigned int destinationHop = nChannels_;
-  for (int i  = destinationChannel,j = sourceChannel ; i < nFrames_ * nChannels_; i+=destinationHop,j+=sourceHop) {
+  for (unsigned int i  = destinationChannel,j = sourceChannel;
+       i < nFrames_ * nChannels_;
+       i+=destinationHop,j+=sourceHop)
+  {
     data_[i] = sourceFrames[j];
   }
 }
