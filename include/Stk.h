@@ -871,10 +871,12 @@ inline StkFloat fmod(StkFloat x, StkFloat y)
 {
 	return std::fmod(x,y);
 }
+#define	RAND_MAX_2	2147483647
 
-inline StkFloat rand()
+inline unsigned long rand()
 {
-	return fastRand();
+	unsigned long output = fastRand() % RAND_MAX_2;
+	return output;
 }
 
 }
