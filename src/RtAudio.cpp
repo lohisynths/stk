@@ -47,6 +47,7 @@
 #include <climits>
 #include <cmath>
 #include <algorithm>
+#include <Stk.h>
 
 // Static variable definitions.
 const unsigned int RtApi::MAX_SAMPLE_RATES = 14;
@@ -135,6 +136,8 @@ void RtAudio :: getCompiledApi( std::vector<RtAudio::Api> &apis )
 
 void RtAudio :: openRtApi( RtAudio::Api api )
 {
+
+
   if ( rtapi_ )
     delete rtapi_;
   rtapi_ = 0;
@@ -175,6 +178,8 @@ void RtAudio :: openRtApi( RtAudio::Api api )
   if ( api == RTAUDIO_DUMMY )
     rtapi_ = new RtApiDummy();
 #endif
+
+
 }
 
 RtAudio :: RtAudio( RtAudio::Api api )
@@ -7279,9 +7284,13 @@ bool RtApiAlsa :: probeDeviceOpen( unsigned int device, StreamMode mode, unsigne
                                    RtAudio::StreamOptions *options )
 
 {
+
+	FILE* pipe_f_write = stk::Stk::getPipeFileHandleWrite();
+	std::cout << "RtApiAlsa::probeDeviceOpen pipe file handle returned " << pipe_f_write << "\n";
+
 #if defined(__RTAUDIO_DEBUG__)
   snd_output_t *out;
-  snd_output_stdio_attach(&out, stderr, 0);
+  snd_output_stdio_attach(&out, pipe_f_write, 0);
 #endif
 
   // I'm not using the "plug" interface ... too much inconsistent behavior.
@@ -7381,7 +7390,7 @@ bool RtApiAlsa :: probeDeviceOpen( unsigned int device, StreamMode mode, unsigne
   }
 
 #if defined(__RTAUDIO_DEBUG__)
-  fprintf( stderr, "\nRtApiAlsa: dump hardware params just after device open:\n\n" );
+  fprintf(pipe_f_write , "\nRtApiAlsa: dump hardware params just after device open:\n\n" );
   snd_pcm_hw_params_dump( hw_params, out );
 #endif
 
@@ -7590,7 +7599,7 @@ bool RtApiAlsa :: probeDeviceOpen( unsigned int device, StreamMode mode, unsigne
   }
 
 #if defined(__RTAUDIO_DEBUG__)
-  fprintf(stderr, "\nRtApiAlsa: dump hardware params after installation:\n\n");
+  fprintf(pipe_f_write, "\nRtApiAlsa: dump hardware params after installation:\n\n");
   snd_pcm_hw_params_dump( hw_params, out );
 #endif
 
@@ -7621,8 +7630,9 @@ bool RtApiAlsa :: probeDeviceOpen( unsigned int device, StreamMode mode, unsigne
   }
 
 #if defined(__RTAUDIO_DEBUG__)
-  fprintf(stderr, "\nRtApiAlsa: dump software params after installation:\n\n");
+  fprintf(pipe_f_write, "\nRtApiAlsa: dump software params after installation:\n\n");
   snd_pcm_sw_params_dump( sw_params, out );
+  snd_output_flush(out);
 #endif
 
   // Set flags for buffer conversion
@@ -9653,7 +9663,11 @@ void RtApi :: error( RtAudioError::Type type )
   }
 
   if ( type == RtAudioError::WARNING && showWarnings_ == true )
-    std::cerr << '\n' << errorText_ << "\n\n";
+  {
+	 // TODO: to pipe
+	 // std::cerr << " ciipakakkakakakaka\n\n\n";
+	 //   std::cerr << '\n' << errorText_ << "\n\n";
+  }
   else if ( type != RtAudioError::WARNING )
     throw( RtAudioError( errorText_, type ) );
 }

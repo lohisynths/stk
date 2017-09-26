@@ -15,7 +15,7 @@ PREFIX = @prefix@
 INCLUDEDIR = @includedir@
 vpath %.o $(OBJECT_PATH)
 
-OBJECTS	=	Stk.o Generator.o Noise.o Blit.o BlitSaw.o BlitSquare.o Granulate.o \
+OBJECTS	=	Stk.o PipeReceiver.o Generator.o Noise.o Blit.o BlitSaw.o BlitSquare.o Granulate.o \
 					Envelope.o ADSR.o Asymp.o Modulate.o SineWave.o FileLoop.o SingWave.o \
 					FileRead.o FileWrite.o WvIn.o FileWvIn.o WvOut.o FileWvOut.o \
 					Filter.o Fir.o Iir.o OneZero.o OnePole.o PoleZero.o TwoZero.o TwoPole.o \

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include "PipeReceiver.h"
 
 
 #define TABLE_SIZE_ 4096
@@ -219,7 +220,38 @@ public:
   //! Toggle display of error messages before throwing exceptions.
   static void printErrors( bool status ) { printErrors_ = status; }
 
+  static FILE* getPipeFileHandleWrite()
+  {
+	  return stk_pipe.getPipeFileHandle();
+  }
+  
+  static int getPipeFileFdWrite()
+  {
+	  return stk_pipe.getPipeFdWrite();
+  }
+  
+  static size_t getPipeAvaliable()
+  {
+	  return stk_pipe.avaliable();
+  }
+  
+  static void readFromPipe(uint8_t *data, size_t &size)
+  {
+	  stk_pipe.readFromPipe(data, size);
+  }
+
+  static void writeToPipe(uint8_t *data, size_t size)
+  {
+	  return stk_pipe.writeToPipe(data, size);
+  }
+
+  static std::ostream *getStreamWrite()
+  {
+	  return stk_pipe.getPipeFileStreamWrite();
+  }
+
 private:
+  static PipeReceiver stk_pipe;
   static StkFloat srate_;
   static std::string rawwavepath_;
   static bool showWarnings_;

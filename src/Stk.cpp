@@ -55,6 +55,7 @@
 
 namespace stk {
 
+PipeReceiver stk::Stk::stk_pipe;
 StkFloat Stk :: srate_ = (StkFloat) SRATE;
 std::string Stk :: rawwavepath_ = RAWWAVE_PATH;
 const Stk::StkFormat Stk :: STK_SINT8   = 0x1;
@@ -206,22 +207,24 @@ void Stk :: handleError( const char *message, StkError::Type type )
 
 void Stk :: handleError( std::string message, StkError::Type type )
 {
-  if ( type == StkError::WARNING || type == StkError::STATUS ) {
-    if ( !showWarnings_ ) return;
-    std::cerr << '\n' << message << '\n' << std::endl;
-  }
-  else if (type == StkError::DEBUG_PRINT) {
-#if defined(_STK_DEBUG_)
-    std::cerr << '\n' << message << '\n' << std::endl;
-#endif
-  }
-  else {
-    if ( printErrors_ ) {
-      // Print error message before throwing.
-      std::cerr << '\n' << message << '\n' << std::endl;
-    }
-    throw StkError(message, type);
-  }
+	//stk::Stk::writeToPipe((uint8_t*)message.c_str(), message.size() );
+
+//  if ( type == StkError::WARNING || type == StkError::STATUS ) {
+//    if ( !showWarnings_ ) return;
+//    std::cerr << '\n' << message << '\n' << std::endl;
+//  }
+//  else if (type == StkError::DEBUG_PRINT) {
+//#if defined(_STK_DEBUG_)
+//    std::cerr << '\n' << message << '\n' << std::endl;
+//#endif
+//  }
+//  else {
+//    if ( printErrors_ ) {
+//      // Print error message before throwing.
+//      std::cerr << '\n' << message << '\n' << std::endl;
+//    }
+//    throw StkError(message, type);
+//  }
 }
 
 //
