@@ -15,3 +15,11 @@ environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.co
 environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281.1597380819/C_INCLUDE_PATH/operation=remove
 environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281.1597380819/append=true
 environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281.1597380819/appendContributed=true
+environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281/CPATH/delimiter=\:
+environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281/CPATH/operation=remove
+environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281/CPLUS_INCLUDE_PATH/delimiter=\:
+environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281/CPLUS_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281/C_INCLUDE_PATH/delimiter=\:
+environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281/C_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281/append=true
+environment/buildEnvironmentInclude/org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.498089281/appendContributed=true
