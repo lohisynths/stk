@@ -81,7 +81,7 @@ namespace stk {
 // following user-definable floating-point type.  You
 // can change this to "float" if you prefer or perhaps
 // a "long double" in the future.
-typedef double StkFloat;
+typedef float StkFloat;
 
 //! STK error handling class.
 /*!
@@ -775,7 +775,7 @@ inline StkFloat fast_sin(StkFloat x) {
 
 inline StkFloat fastPow(StkFloat a, StkFloat b) {
   union {
-	  StkFloat d;
+	  double d;
     int x[2];
   } u = { a };
   u.x[1] = (int)(b * (u.x[1] - 1072632447) + 1072632447);
