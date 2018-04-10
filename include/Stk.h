@@ -633,6 +633,49 @@ inline double fast_sin(double x) {
 	return x;
 }
 
+/*
+union el
+{
+	StkFloat z1;
+	int z2;
+};
+
+
+inline StkFloat fast_sin(StkFloat x) {
+	int k;
+	StkFloat y;
+	StkFloat z;
+
+	el zz;
+
+	z  = x;
+	z *= 0.3183098861837907;
+	z += 6755399441055744.0;
+
+	zz.z1 = z;
+
+	//k  = *((int *) &z);
+	k = zz.z2;
+
+	z  = k;
+	z *= 3.1415926535897932;
+	x -= z;
+	y  = x;
+	y *= x;
+	z  = 0.0073524681968701;
+	z *= y;
+	z -= 0.1652891139701474;
+	z *= y;
+	z += 0.9996919862959676;
+	x *= z;
+	k &= 1;
+	k += k;
+	z  = k;
+	z *= x;
+	x -= z;
+	return x;
+}
+*/
 
 //static const float __sinf_rng[2] = {
 //	2.0 / M_PI,
