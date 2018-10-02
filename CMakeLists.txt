@@ -122,7 +122,7 @@ target_include_directories(${PROJECT_NAME}
 target_compile_definitions(${PROJECT_NAME}
     PRIVATE $<$<STREQUAL:$<CONFIGURATION>,Debug>:
         _STK_DEBUG_ __RTAUDIO_DEBUG__ __RTMIDI_DEBUG__>
-    PUBLIC __LINUX_ALSA__
+    PUBLIC __LINUX_ALSA__ __UNIX_JACK__
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_11)
