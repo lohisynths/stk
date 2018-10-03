@@ -92,10 +92,14 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
 
+if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES armv7l)
+    set(ADITIONAL_LIBS __UNIX_JACK__)
+endif()
+
 target_compile_definitions(${PROJECT_NAME}
     PRIVATE $<$<STREQUAL:$<CONFIGURATION>,Debug>:
         _STK_DEBUG_ __RTAUDIO_DEBUG__ __RTMIDI_DEBUG__>
-    PUBLIC __LINUX_ALSA__ __UNIX_JACK__
+    PUBLIC __LINUX_ALSA__ ${ADITIONAL_LIBS}
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_11)
