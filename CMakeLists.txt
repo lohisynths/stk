@@ -106,7 +106,7 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_11)
 
 target_compile_options(${PROJECT_NAME}
     PRIVATE $<$<STREQUAL:$<CONFIGURATION>,Release>:
-        -ffast-math -fno-unsafe-math-optimizations -Wall > #-Wno-psabi in gcc 7.1 https://stackoverflow.com/a/48149400
+        -ffast-math -fno-unsafe-math-optimizations -Wall -Wno-psabi > #-Wno-psabi in gcc 7.1 https://stackoverflow.com/a/48149400
     PRIVATE $<$<STREQUAL:$<CONFIGURATION>,Debug>:
         -Wall >
 )
